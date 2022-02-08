@@ -1,0 +1,7 @@
+﻿  main_6_1.cpp
+C:\Users\kubaj\Desktop\graficzka\cw 6\src\main_6_1.cpp(53,24): warning C4305: "inicjowanie": obcięcie z "double" do "float"
+C:\Users\kubaj\Desktop\graficzka\cw 6\src\main_6_1.cpp(132,10): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\kubaj\Desktop\graficzka\cw 6\src\main_6_1.cpp(133,10): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\kubaj\Desktop\graficzka\cw 6\src\main_6_1.cpp(390,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+Camera.obj : warning LNK4075: zignorowano opcję „/EDITANDCONTINUE” z powodu określenia opcji „/INCREMENTAL:NO”
+  grk-cw6.vcxproj -> C:\Users\kubaj\Desktop\graficzka\Debug\grk-cw6.exe
