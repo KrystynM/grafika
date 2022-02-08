@@ -31,7 +31,7 @@ Core::RenderContext duckContext;
 
 
 glm::vec3 fishPositions[100];
-float fishSpreadFactor = 50.0;
+float fishSpreadFactor = 100.0;
 
 float old_x, old_y = -1;
 float delta_x, delta_y = 0;
@@ -287,17 +287,17 @@ void renderScene()
 	glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * glm::mat4_cast(glm::inverse(rotation)) * glm::mat4_cast(glm::inverse(rotationCamera)) * shipInitialTransformation;
 	drawObjectTexture(shipContext, shipModelMatrix, textureDuck);
 
-	drawObjectTexture(bottomContext, glm::translate(glm::vec3(0, 450, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(-1, 0, 0)) * glm::scale(glm::vec3(2.0f) * glm::vec3(0.2f)), textureReef);
+	drawObjectTexture(bottomContext, glm::translate(glm::vec3(0, 438, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(-1, 0, 0)) * glm::scale(glm::vec3(2.0f) * glm::vec3(0.2f)), textureReef);
 
 	glm::mat4 skyboxModel = glm::scale(glm::mat4(1.0f), glm::vec3(50, 50, 50));
 	renderSkybox(skyboxModel, textureCubemap);
 
-	for (int i = 0; i < 30; i++) {
+	for (int i = 0; i < 50; i++) {
 		if (i % 10 == 0) {
 			drawObjectTexture(fishContext2, glm::translate(fishPositions[i]) * glm::scale(glm::vec3(0.7f) * glm::vec3(0.7f)) *
 				glm::rotate(glm::radians((timee / 4) * 90.f), glm::vec3(0, -1, 0)) *
 				glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) *
-				glm::translate(glm::vec3(-70, -80, -50)) *
+				glm::translate(glm::vec3(-70, 900, -50)) *
 				glm::rotate(glm::radians((timee / 4) * 0.f), glm::vec3(0, 1, 0)) *
 				glm::rotate(glm::radians(40.0f), glm::vec3(0, 1, 0)) *
 				glm::rotate(glm::radians(180.0f), glm::vec3(0, -1, 0)) *
@@ -308,7 +308,7 @@ void renderScene()
 			drawObjectTexture(fishContext, glm::translate(fishPositions[i]) * glm::scale(glm::vec3(0.5f) * glm::vec3(0.5f)) *
 				glm::rotate(glm::radians((timee / 4) * 90.f), glm::vec3(0, 1, 0)) *
 				glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) *
-				glm::translate(glm::vec3(-50 - 3 * i, -50, -70)) *
+				glm::translate(glm::vec3(-50 - 3 * i, 900, -70)) *
 				glm::rotate(glm::radians((timee / 4) * 0.f), glm::vec3(0, 1, 0)) *
 				glm::rotate(glm::radians(40.0f), glm::vec3(0, 1, 0)) *
 				glm::eulerAngleY(sin(timee * 10) / 4),
@@ -318,7 +318,7 @@ void renderScene()
 			drawObjectTexture(fishContext, glm::translate(fishPositions[i]) * glm::scale(glm::vec3(0.5f) * glm::vec3(0.5f)) *
 				glm::rotate(glm::radians((timee / 4) * 90.f), glm::vec3(0, -1, 0)) *
 				glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) *
-				glm::translate(glm::vec3(-50 - 3 * i, -50, -85)) *
+				glm::translate(glm::vec3(-50 - 3 * i, 900, -85)) *
 				glm::rotate(glm::radians((timee / 4) * 0.f), glm::vec3(0, 1, 0)) *
 				glm::rotate(glm::radians(40.0f), glm::vec3(0, 1, 0)) *
 				glm::rotate(glm::radians(180.0f), glm::vec3(0, -1, 0)) *
@@ -328,7 +328,7 @@ void renderScene()
 			drawObjectTexture(fishContext2, glm::translate(fishPositions[i]) * glm::scale(glm::vec3(0.25f) * glm::vec3(0.25f)) *
 				glm::rotate(glm::radians((timee / 4) * 90.f), glm::vec3(0, 1, 0)) *
 				glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) *
-				glm::translate(glm::vec3(-50, -50, -fishPositions[i].z)) *
+				glm::translate(glm::vec3(-50, 900, -fishPositions[i].z)) *
 				glm::rotate(glm::radians((timee / 4) * 0.f), glm::vec3(0, 1, 0)) *
 				glm::rotate(glm::radians(40.0f), glm::vec3(0, 1, 0)) *
 				glm::eulerAngleY(sin(timee * 10) / 4),
@@ -336,7 +336,7 @@ void renderScene()
 		}	
 	}
 
-	for (int j = 0; j < 2; j++) drawObjectTexture(sharkContext, glm::translate(glm::vec3( 70 * j, 100 + 20 * j, 20 + 50 * j)) *
+	for (int j = 0; j < 2; j++) drawObjectTexture(sharkContext, glm::translate(glm::vec3( 70 * j, 575 + 20 * j, 20 + 50 * j)) *
 									glm::rotate(glm::radians((timee / 12) * 90.f), glm::vec3(0, 1, 0)) *
 									glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) * glm::translate(glm::vec3(-95, -95, -100)) *
 									glm::rotate(glm::radians((timee / 12) * 0.f), glm::vec3(0, 1, 0)) * glm::eulerAngleY(sin(timee * 2) / 4) * 
@@ -345,7 +345,7 @@ void renderScene()
 									glm::rotate(glm::radians(90.0f), glm::vec3(-1, 0, 0)),
 									textureShark);
 
-	for (int j = 0; j < 2; j++) drawObjectTexture(sharkContext, glm::translate(glm::vec3(70 * j, 100 + 20 * j, 20 + 50 * j)) *
+	for (int j = 0; j < 2; j++) drawObjectTexture(sharkContext, glm::translate(glm::vec3(70 * j, 565 + 20 * j, 20 + 50 * j)) *
 		glm::rotate(glm::radians((timee / 12) * 90.f), glm::vec3(0, -1, 0)) *
 		glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) * glm::translate(glm::vec3(-95, -95, -100)) *
 		glm::rotate(glm::radians((timee / 12) * 0.f), glm::vec3(0, 1, 0)) * glm::eulerAngleY(sin(timee * 2) / 4) *
@@ -355,7 +355,7 @@ void renderScene()
 		textureShark);
 
 
-	drawObjectTexture(sharkContext, glm::translate(glm::vec3(100, 100, 100)) *
+	drawObjectTexture(sharkContext, glm::translate(glm::vec3(100, 560, 100)) *
 		glm::rotate(glm::radians((timee / 12) * 90.f), glm::vec3(0, 1, 0)) *
 		glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) * glm::translate(glm::vec3(-95, -95, -100)) *
 		glm::rotate(glm::radians((timee / 12) * 0.f), glm::vec3(0, 1, 0)) * glm::eulerAngleY(sin(timee * 2) / 4) *
@@ -425,8 +425,8 @@ int main(int argc, char ** argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(200, 200);
-	glutInitWindowSize(600, 600);
-	glutCreateWindow("OpenGL Pierwszy Program");
+	glutInitWindowSize(1280, 720);
+	glutCreateWindow("graficzka.exe");
 	glewInit();
 
 	init();
