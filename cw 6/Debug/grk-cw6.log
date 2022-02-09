@@ -1,7 +1,7 @@
 ﻿  main_6_1.cpp
-j:\Desktop\graficzka\cw 6\src\main_6_1.cpp(53,24): warning C4305: 'initializing': truncation from 'double' to 'float'
-j:\Desktop\graficzka\cw 6\src\main_6_1.cpp(132,10): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-j:\Desktop\graficzka\cw 6\src\main_6_1.cpp(133,10): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-j:\Desktop\graficzka\cw 6\src\main_6_1.cpp(390,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+j:\Desktop\grafika\cw 6\src\main_6_1.cpp(57,24): warning C4305: 'initializing': truncation from 'double' to 'float'
+j:\Desktop\grafika\cw 6\src\main_6_1.cpp(199,10): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+j:\Desktop\grafika\cw 6\src\main_6_1.cpp(200,10): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+j:\Desktop\grafika\cw 6\src\main_6_1.cpp(419,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 Camera.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
-  grk-cw6.vcxproj -> j:\Desktop\graficzka\Debug\grk-cw6.exe
+  grk-cw6.vcxproj -> j:\Desktop\grafika\Debug\grk-cw6.exe
