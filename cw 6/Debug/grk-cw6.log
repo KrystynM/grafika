@@ -1,7 +1,7 @@
 ﻿  main_6_1.cpp
-j:\Desktop\grafika\cw 6\src\main_6_1.cpp(57,24): warning C4305: 'initializing': truncation from 'double' to 'float'
-j:\Desktop\grafika\cw 6\src\main_6_1.cpp(199,10): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-j:\Desktop\grafika\cw 6\src\main_6_1.cpp(200,10): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-j:\Desktop\grafika\cw 6\src\main_6_1.cpp(419,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-Camera.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
-  grk-cw6.vcxproj -> j:\Desktop\grafika\Debug\grk-cw6.exe
+C:\Users\jakub\source\repos\GRK\cw 6\src\main_6_1.cpp(67,24): warning C4305: "inicjowanie": obcięcie z "double" do "float"
+C:\Users\jakub\source\repos\GRK\cw 6\src\main_6_1.cpp(205,10): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\jakub\source\repos\GRK\cw 6\src\main_6_1.cpp(206,10): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\jakub\source\repos\GRK\cw 6\src\main_6_1.cpp(457,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+Camera.obj : warning LNK4075: zignorowano opcję „/EDITANDCONTINUE” z powodu określenia opcji „/INCREMENTAL:NO”
+  grk-cw6.vcxproj -> C:\Users\jakub\source\repos\GRK\Debug\grk-cw6.exe

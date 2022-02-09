@@ -20,6 +20,10 @@ GLuint programTexture;
 GLuint programSkybox;
 GLuint textureCubemap;
 
+obj::Model plantModel;
+glm::mat4 plantModelMatrix;
+GLuint plantTexture;
+
 Core::Shader_Loader shaderLoader;
 
 Core::RenderContext shipContext;
@@ -29,6 +33,9 @@ Core::RenderContext fishContext2;
 Core::RenderContext sharkContext;
 Core::RenderContext duckContext;
 Core::RenderContext bubbleContext;
+Core::RenderContext plantContext;
+Core::RenderContext coralContext;
+Core::RenderContext kelpContext;
 
 int g = 0;
 
@@ -36,6 +43,9 @@ int g = 0;
 
 glm::vec3 fishPositions[100];
 float fishSpreadFactor = 100.0;
+
+
+
 
 float old_x, old_y = -1;
 float delta_x, delta_y = 0;
@@ -67,7 +77,9 @@ GLuint textureFish2;
 GLuint textureShark;
 GLuint textureDuck;
 GLuint textureBubble;
-
+GLuint texturePlant;
+GLuint textureCoral;
+GLuint textureKelp;
 
 unsigned int skyboxVAO, skyboxVBO;
 
@@ -111,12 +123,6 @@ bool insideSkybox(glm::vec3 nextPosition) {
 		&& nextPosition.y > -skyboxSize && nextPosition.y < skyboxSize
 		&& nextPosition.z > -skyboxSize && nextPosition.z < skyboxSize;
 }
-
-
-
-
-
-
 
 void drawObjectColor(Core::RenderContext context, glm::mat4 modelMatrix, glm::vec3 color)
 {
@@ -305,8 +311,39 @@ void renderScene()
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 
 
+
 	if (g == 1) { drawObjectTexture(bubbleContext, glm::translate(glm::vec3(0, 460, 0)) * glm::scale(glm::vec3(0.1f)), textureBubble); g = 0; }
 	
+
+	//coral objects placement
+	drawObjectTexture(coralContext, glm::translate(glm::vec3(4, 452, 17)) * glm::scale(glm::vec3(2.6f)), textureCoral);
+	drawObjectTexture(coralContext, glm::translate(glm::vec3(24, 463, 111)) * glm::scale(glm::vec3(3.0f)), textureCoral);
+	drawObjectTexture(coralContext, glm::translate(glm::vec3(57, 457, 75)) * glm::scale(glm::vec3(2.0f)), textureCoral);
+
+	//plants objects placement
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(-8, 450, 0)) * glm::scale(glm::vec3(1.8f)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(50, 450, 0)) * glm::scale(glm::vec3(3.8f)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(41, 452, 8)) * glm::scale(glm::vec3(1.3f)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(140, 452, 68)) * glm::scale(glm::vec3(4.1f)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(69, 459, 31)) * glm::scale(glm::vec3(2.1f)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(71, 458, 32)) * glm::scale(glm::vec3(1.1f)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(44, 453, 111)) * glm::scale(glm::vec3(4.1f)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(-118, 462, 75)) * glm::scale(glm::vec3(4.1f)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(-77, 451, 43)) * glm::scale(glm::vec3(2.4f)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(120, 450, -50)) * glm::scale(glm::vec3(3.8f)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(0, 450, -76)) * glm::scale(glm::vec3(3.8f)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(10, 457, -36)) * glm::scale(glm::vec3(2.8f)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(16, 461, -43)) * glm::scale(glm::vec3(1.2f)), texturePlant);
+
+
+	//kelp objects placement
+	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-29, 452, -32)) * glm::scale(glm::vec3(1.9f)), textureKelp);
+	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-54, 452, -12)) * glm::scale(glm::vec3(2.9f)), textureKelp);
+	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-8, 452, -47)) * glm::scale(glm::vec3(2.2f)), textureKelp);
+	drawObjectTexture(kelpContext, glm::translate(glm::vec3(33, 452, -80)) * glm::scale(glm::vec3(4.2f)), textureKelp);
+	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-90, 456, 60)) * glm::scale(glm::vec3(4.0f)), textureKelp);
+	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-125, 451, 1)) * glm::scale(glm::vec3(4.0f)), textureKelp);
+
 
 
 	glm::mat4 shipInitialTransformation = glm::translate(glm::vec3(-0.4f, -0.25f, 0.1f)) * glm::rotate(glm::radians(10.0f), glm::vec3(3, 5, 0)) * glm::rotate(glm::radians(180.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.35f));
@@ -393,6 +430,7 @@ void renderScene()
 		textureShark);
 
 
+
 	skyboxModel = glm::scale(glm::mat4(1.0f), glm::vec3(50, 50, 50));
 	renderSkybox(skyboxModel, textureCubemap);
 
@@ -429,6 +467,11 @@ void init()
 	loadModelToContext("models/shark.obj", sharkContext);
 	loadModelToContext("models/duck.obj", duckContext);
 	loadModelToContext("models/bubble.obj", bubbleContext);
+	loadModelToContext("models/seaweed.obj", plantContext);
+	loadModelToContext("models/coral.obj", coralContext);
+	loadModelToContext("models/kelp.obj", kelpContext);
+
+
 	setupSkybox();
 	textureFish = Core::LoadTexture("textures/color.jpg");
 	textureReef = Core::LoadTexture("textures/ground.jpg");
@@ -436,6 +479,10 @@ void init()
 	textureShark = Core::LoadTexture("textures/shark.jpg");
 	textureDuck = Core::LoadTexture("textures/boat.png");
 	textureBubble = Core::LoadTexture("textures/bubble.jpg");
+	texturePlant = Core::LoadTexture("textures/plant.png");
+	textureCoral = Core::LoadTexture("textures/coral.png");
+	textureKelp = Core::LoadTexture("textures/kelp.png");
+
 	//textureFish = Core::LoadTexture("textures/xd.jpg");
 	for (int i = 0; i < 100; i++) fishPositions[i] = glm::vec3(rand()%100,(rand()%50) + 430, rand()% 100);
 }
