@@ -27,7 +27,6 @@ Core::RenderContext bottomContext;
 Core::RenderContext fishContext;
 Core::RenderContext fishContext2;
 Core::RenderContext sharkContext;
-Core::RenderContext duckContext;
 Core::RenderContext bubbleContext;
 
 int g = 0;
@@ -65,7 +64,7 @@ GLuint textureReef;
 GLuint textureFish;
 GLuint textureFish2;
 GLuint textureShark;
-GLuint textureDuck;
+GLuint textureShip;
 GLuint textureBubble;
 
 
@@ -308,12 +307,11 @@ void renderScene()
 	if (g == 1) { drawObjectTexture(bubbleContext, glm::translate(glm::vec3(0, 460, 0)) * glm::scale(glm::vec3(0.1f)), textureBubble); g = 0; }
 	
 
+	glm::mat4 shipInitialTransformation = glm::translate(glm::vec3(0.0f, -0.5f, -0.5f)) * glm::rotate(glm::radians(90.0f), glm::vec3(0.0f,0.0f,1.0f)) * glm::scale(glm::vec3(0.05f));
 
-	glm::mat4 shipInitialTransformation = glm::translate(glm::vec3(-0.4f, -0.25f, 0.1f)) * glm::rotate(glm::radians(10.0f), glm::vec3(3, 5, 0)) * glm::rotate(glm::radians(180.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.35f));
 
-
-	glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f) * glm::mat4_cast(glm::inverse(rotation)) * glm::mat4_cast(glm::inverse(rotationCamera)) * shipInitialTransformation;
-	drawObjectTexture(shipContext, shipModelMatrix, textureDuck);
+	glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir) * glm::mat4_cast(glm::inverse(rotation)) * glm::mat4_cast(glm::inverse(rotationCamera)) * shipInitialTransformation;
+	drawObjectTexture(shipContext, shipModelMatrix, textureShip);
 
 	drawObjectTexture(bottomContext, glm::translate(glm::vec3(0, 438, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(-1, 0, 0)) * glm::scale(glm::vec3(2.0f) * glm::vec3(0.2f)), textureReef);
 
@@ -424,19 +422,17 @@ void init()
 	programSkybox = shaderLoader.CreateProgram("shaders/shader_skybox.vert", "shaders/shader_skybox.frag");
 	loadModelToContext("models/boat.obj", shipContext);
 	loadModelToContext("models/bottom.obj", bottomContext);
-	loadModelToContext("models/nemo.obj", fishContext);
-	loadModelToContext("models/fish.obj", fishContext2);
+	loadModelToContext("models/fish.obj", fishContext);
+	loadModelToContext("models/fish2.obj", fishContext2);
 	loadModelToContext("models/shark.obj", sharkContext);
-	loadModelToContext("models/duck.obj", duckContext);
 	loadModelToContext("models/bubble.obj", bubbleContext);
 	setupSkybox();
-	textureFish = Core::LoadTexture("textures/color.jpg");
+	textureFish = Core::LoadTexture("textures/fish.jpg");
+	textureFish2 = Core::LoadTexture("textures/fish2.png");
 	textureReef = Core::LoadTexture("textures/ground.jpg");
-	textureFish2 = Core::LoadTexture("textures/fish.png");
 	textureShark = Core::LoadTexture("textures/shark.jpg");
-	textureDuck = Core::LoadTexture("textures/boat.png");
+	textureShip = Core::LoadTexture("textures/boat.jpg");
 	textureBubble = Core::LoadTexture("textures/bubble.jpg");
-	//textureFish = Core::LoadTexture("textures/xd.jpg");
 	for (int i = 0; i < 100; i++) fishPositions[i] = glm::vec3(rand()%100,(rand()%50) + 430, rand()% 100);
 }
 
@@ -457,7 +453,7 @@ int main(int argc, char ** argv)
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(1280, 720);
-	glutCreateWindow("graficzka.exe");
+	glutCreateWindow("grafika-projekt.exe");
 	glewInit();
 
 	init();
