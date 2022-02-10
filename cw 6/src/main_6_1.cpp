@@ -39,6 +39,12 @@ Core::RenderContext kelpContext;
 int g = 0;
 
 
+//bubles start
+
+
+//bubles end
+
+
 
 glm::vec3 fishPositions[100];
 float fishSpreadFactor = 100.0;
@@ -62,7 +68,7 @@ float cameraAngle = 0;
 glm::mat4 cameraMatrix, perspectiveMatrix;
 
 glm::vec3 lightDir = glm::normalize(glm::vec3(-0.4f, -0.5f, -0.2f));
-glm::vec3 skyColor = glm::vec3(0.298f, 0.392f, 0.643f);
+glm::vec3 skyColor = glm::vec3(0.298f, 0.392f, 0.543f);
 float fogDensity = 0.08;
 float fogGradient = 0.5;
 
@@ -308,7 +314,6 @@ void renderScene()
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-
 
 
 	if (g == 1) { drawObjectTexture(bubbleContext, glm::translate(glm::vec3(0, 460, 0)) * glm::scale(glm::vec3(0.1f)), textureBubble); g = 0; }
