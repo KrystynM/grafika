@@ -30,6 +30,9 @@ Core::RenderContext shipContext;
 Core::RenderContext bottomContext;
 Core::RenderContext fishContext;
 Core::RenderContext fishContext2;
+Core::RenderContext fishContext3;
+Core::RenderContext fishContext4;
+Core::RenderContext fishContext5;
 Core::RenderContext sharkContext;
 Core::RenderContext bubbleContext;
 Core::RenderContext plantContext;
@@ -69,8 +72,8 @@ glm::mat4 cameraMatrix, perspectiveMatrix;
 
 glm::vec3 lightDir = glm::normalize(glm::vec3(-0.4f, -0.5f, -0.2f));
 glm::vec3 skyColor = glm::vec3(0.298f, 0.392f, 0.543f);
-float fogDensity = 0.08;
-float fogGradient = 0.5;
+float fogDensity = 0.06;
+float fogGradient = 0.45;
 
 glm::quat rotation = glm::quat(1, 0, 0, 0);
 
@@ -79,6 +82,9 @@ float skyboxSize = 998.0f;
 GLuint textureReef;
 GLuint textureFish;
 GLuint textureFish2;
+GLuint textureFish3;
+GLuint textureFish4;
+GLuint textureFish5;
 GLuint textureShark;
 GLuint textureShip;
 GLuint textureBubble;
@@ -317,37 +323,38 @@ void renderScene()
 
 
 	if (g == 1) { drawObjectTexture(bubbleContext, glm::translate(glm::vec3(0, 460, 0)) * glm::scale(glm::vec3(0.1f)), textureBubble); g = 0; }
+
 	
 
-	glm::mat4 shipInitialTransformation = glm::translate(glm::vec3(0.0f, -0.5f, -0.5f)) * glm::rotate(glm::radians(90.0f), glm::vec3(0.0f,0.0f,1.0f)) * glm::scale(glm::vec3(0.05f));
+	glm::mat4 shipInitialTransformation = glm::translate(glm::vec3(0.0f, -.5f, 1.0f)) * glm::rotate(glm::radians(0.0f), glm::vec3(0.0f,0.0f,1.0f)) * glm::scale(glm::vec3(0.1f));
 	//coral objects placement
-	drawObjectTexture(coralContext, glm::translate(glm::vec3(4, 452, 17)) * glm::scale(glm::vec3(2.6f)), textureCoral);
-	drawObjectTexture(coralContext, glm::translate(glm::vec3(24, 463, 111)) * glm::scale(glm::vec3(3.0f)), textureCoral);
+	drawObjectTexture(coralContext, glm::translate(glm::vec3(4, 452, 17)) * glm::scale(glm::vec3(2.6f)) * glm::rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)), textureCoral);
+	drawObjectTexture(coralContext, glm::translate(glm::vec3(24, 463, 111)) * glm::scale(glm::vec3(3.0f)) * glm::rotate(glm::radians(180.0f), glm::vec3(0, 1, 0)), textureCoral);
 	drawObjectTexture(coralContext, glm::translate(glm::vec3(57, 457, 75)) * glm::scale(glm::vec3(2.0f)), textureCoral);
 
 	//plants objects placement
 	drawObjectTexture(plantContext, glm::translate(glm::vec3(-8, 450, 0)) * glm::scale(glm::vec3(1.8f)), texturePlant);
-	drawObjectTexture(plantContext, glm::translate(glm::vec3(50, 450, 0)) * glm::scale(glm::vec3(3.8f)), texturePlant);
-	drawObjectTexture(plantContext, glm::translate(glm::vec3(41, 452, 8)) * glm::scale(glm::vec3(1.3f)), texturePlant);
-	drawObjectTexture(plantContext, glm::translate(glm::vec3(140, 452, 68)) * glm::scale(glm::vec3(4.1f)), texturePlant);
-	drawObjectTexture(plantContext, glm::translate(glm::vec3(69, 459, 31)) * glm::scale(glm::vec3(2.1f)), texturePlant);
-	drawObjectTexture(plantContext, glm::translate(glm::vec3(71, 458, 32)) * glm::scale(glm::vec3(1.1f)), texturePlant);
-	drawObjectTexture(plantContext, glm::translate(glm::vec3(44, 453, 111)) * glm::scale(glm::vec3(4.1f)), texturePlant);
-	drawObjectTexture(plantContext, glm::translate(glm::vec3(-118, 462, 75)) * glm::scale(glm::vec3(4.1f)), texturePlant);
-	drawObjectTexture(plantContext, glm::translate(glm::vec3(-77, 451, 43)) * glm::scale(glm::vec3(2.4f)), texturePlant);
-	drawObjectTexture(plantContext, glm::translate(glm::vec3(120, 450, -50)) * glm::scale(glm::vec3(3.8f)), texturePlant);
-	drawObjectTexture(plantContext, glm::translate(glm::vec3(0, 450, -76)) * glm::scale(glm::vec3(3.8f)), texturePlant);
-	drawObjectTexture(plantContext, glm::translate(glm::vec3(10, 457, -36)) * glm::scale(glm::vec3(2.8f)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(50, 450, 0)) * glm::scale(glm::vec3(3.8f)) * glm::rotate(glm::radians(30.0f), glm::vec3(0, 1, 0)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(41, 452, 8)) * glm::scale(glm::vec3(1.3f)) * glm::rotate(glm::radians(60.0f), glm::vec3(0, 1, 0)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(140, 452, 68)) * glm::scale(glm::vec3(4.1f)) * glm::rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(69, 459, 31)) * glm::scale(glm::vec3(2.1f)) * glm::rotate(glm::radians(120.0f), glm::vec3(0, 1, 0)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(71, 458, 32)) * glm::scale(glm::vec3(1.1f)) * glm::rotate(glm::radians(150.0f), glm::vec3(0, 1, 0)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(44, 453, 111)) * glm::scale(glm::vec3(4.1f)) * glm::rotate(glm::radians(180.0f), glm::vec3(0, 1, 0)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(-118, 462, 75)) * glm::scale(glm::vec3(4.1f)) * glm::rotate(glm::radians(210.0f), glm::vec3(0, 1, 0)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(-77, 451, 43)) * glm::scale(glm::vec3(2.4f)) * glm::rotate(glm::radians(240.0f), glm::vec3(0, 1, 0)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(120, 450, -50)) * glm::scale(glm::vec3(3.8f)) * glm::rotate(glm::radians(270.0f), glm::vec3(0, 1, 0)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(0, 450, -76)) * glm::scale(glm::vec3(3.8f)) * glm::rotate(glm::radians(300.0f), glm::vec3(0, 1, 0)), texturePlant);
+	drawObjectTexture(plantContext, glm::translate(glm::vec3(10, 457, -36)) * glm::scale(glm::vec3(2.8f)) * glm::rotate(glm::radians(330.0f), glm::vec3(0, 1, 0)), texturePlant);
 	drawObjectTexture(plantContext, glm::translate(glm::vec3(16, 461, -43)) * glm::scale(glm::vec3(1.2f)), texturePlant);
 
 
 	//kelp objects placement
 	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-29, 452, -32)) * glm::scale(glm::vec3(1.9f)), textureKelp);
-	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-54, 452, -12)) * glm::scale(glm::vec3(2.9f)), textureKelp);
-	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-8, 452, -47)) * glm::scale(glm::vec3(2.2f)), textureKelp);
-	drawObjectTexture(kelpContext, glm::translate(glm::vec3(33, 452, -80)) * glm::scale(glm::vec3(4.2f)), textureKelp);
-	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-90, 456, 60)) * glm::scale(glm::vec3(4.0f)), textureKelp);
-	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-125, 451, 1)) * glm::scale(glm::vec3(4.0f)), textureKelp);
+	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-54, 452, -12)) * glm::scale(glm::vec3(2.9f)) * glm::rotate(glm::radians(60.0f), glm::vec3(0, 1, 0)), textureKelp);
+	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-8, 452, -47)) * glm::scale(glm::vec3(2.2f)) * glm::rotate(glm::radians(120.0f), glm::vec3(0, 1, 0)), textureKelp);
+	drawObjectTexture(kelpContext, glm::translate(glm::vec3(33, 452, -80)) * glm::scale(glm::vec3(4.2f)) * glm::rotate(glm::radians(180.0f), glm::vec3(0, 1, 0)), textureKelp);
+	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-90, 456, 60)) * glm::scale(glm::vec3(4.0f)) * glm::rotate(glm::radians(240.0f), glm::vec3(0, 1, 0)), textureKelp);
+	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-125, 451, 1)) * glm::scale(glm::vec3(4.0f)) * glm::rotate(glm::radians(300.0f), glm::vec3(0, 1, 0)), textureKelp);
 
 
 
@@ -360,9 +367,20 @@ void renderScene()
 	glm::mat4 skyboxModel = glm::scale(glm::mat4(1.0f), glm::vec3(50, 50, 50));
 	renderSkybox(skyboxModel, textureCubemap);
 
-	for (int i = 0; i < 50; i++) {
-		if (i % 10 == 0) {
-			drawObjectTexture(fishContext2, glm::translate(fishPositions[i]) * glm::scale(glm::vec3(0.7f) * glm::vec3(0.7f)) *
+	for (int i = 0; i < 100; i++) {
+		if (i % 11 == 0) {
+			drawObjectTexture(fishContext2, glm::translate(fishPositions[i]) * glm::scale(glm::vec3(0.3f) * glm::vec3(0.3f)) *
+				glm::rotate(glm::radians((timee / -4) * 90.f), glm::vec3(0, -1, 0)) *
+				glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) *
+				glm::translate(glm::vec3(-90, 100, -40)) *
+				glm::rotate(glm::radians((timee / -4) * 0.f), glm::vec3(0, -1, 0)) *
+				glm::rotate(glm::radians(40.0f), glm::vec3(0, 1, 0)) *
+				glm::rotate(glm::radians(180.0f), glm::vec3(0, -1, 0)) *
+				glm::eulerAngleY(sin(timee * 10) / -4),
+				textureFish2);
+
+		} else if (i % 10 == 0) {
+			drawObjectTexture(fishContext, glm::translate(fishPositions[i]) * glm::scale(glm::vec3(0.7f) * glm::vec3(0.7f)) *
 				glm::rotate(glm::radians((timee / 4) * 90.f), glm::vec3(0, -1, 0)) *
 				glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) *
 				glm::translate(glm::vec3(-70, 100, -50)) *
@@ -370,20 +388,20 @@ void renderScene()
 				glm::rotate(glm::radians(40.0f), glm::vec3(0, 1, 0)) *
 				glm::rotate(glm::radians(180.0f), glm::vec3(0, -1, 0)) *
 				glm::eulerAngleY(sin(timee * 10) / 4),
-				textureFish2);
-
-		} else if (i % 7 == 0) {
-			drawObjectTexture(fishContext, glm::translate(fishPositions[i]) * glm::scale(glm::vec3(0.5f) * glm::vec3(0.5f)) *
-				glm::rotate(glm::radians((timee / 4) * 90.f), glm::vec3(0, 1, 0)) *
-				glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) *
-				glm::translate(glm::vec3(-50 - 3 * i, 100, -70)) *
-				glm::rotate(glm::radians((timee / 4) * 0.f), glm::vec3(0, 1, 0)) *
-				glm::rotate(glm::radians(40.0f), glm::vec3(0, 1, 0)) *
-				glm::eulerAngleY(sin(timee * 10) / 4),
 				textureFish);
 
+		} else if (i % 7 == 0) {
+			drawObjectTexture(fishContext3, glm::translate(fishPositions[i]) * glm::scale(glm::vec3(0.5f) * glm::vec3(0.5f)) *
+				glm::rotate(glm::radians((timee / -4) * 90.f), glm::vec3(0, 1, 0)) *
+				glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) *
+				glm::translate(glm::vec3(-50 - 3 * i, 100, -70)) *
+				glm::rotate(glm::radians((timee / -4) * 0.f), glm::vec3(0, 1, 0)) *
+				glm::rotate(glm::radians(40.0f), glm::vec3(0, 1, 0)) *
+				glm::eulerAngleY(sin(timee * 10) / -4),
+				textureFish3);
+
 		} else if (i % 3 == 0) {
-			drawObjectTexture(fishContext, glm::translate(fishPositions[i]) * glm::scale(glm::vec3(0.5f) * glm::vec3(0.5f)) *
+			drawObjectTexture(fishContext4, glm::translate(fishPositions[i]) * glm::scale(glm::vec3(0.5f) * glm::vec3(0.5f)) *
 				glm::rotate(glm::radians((timee / 4) * 90.f), glm::vec3(0, -1, 0)) *
 				glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) *
 				glm::translate(glm::vec3(-50 - 3 * i, 100, -85)) *
@@ -391,27 +409,20 @@ void renderScene()
 				glm::rotate(glm::radians(40.0f), glm::vec3(0, 1, 0)) *
 				glm::rotate(glm::radians(180.0f), glm::vec3(0, -1, 0)) *
 				glm::eulerAngleY(sin(timee * 10) / 4),
-				textureFish);
+				textureFish4);
 		} else {
-			drawObjectTexture(fishContext2, glm::translate(fishPositions[i]) * glm::scale(glm::vec3(0.25f) * glm::vec3(0.25f)) *
-				glm::rotate(glm::radians((timee / 4) * 90.f), glm::vec3(0, 1, 0)) *
+			drawObjectTexture(fishContext5, glm::translate(fishPositions[i]) * glm::scale(glm::vec3(0.25f) * glm::vec3(0.25f)) *
+				glm::rotate(glm::radians((timee / -4) * 90.f), glm::vec3(0, 1, 0)) *
 				glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) *
 				glm::translate(glm::vec3(-50, 100, -fishPositions[i].z)) *
 				glm::rotate(glm::radians((timee / 4) * 0.f), glm::vec3(0, 1, 0)) *
 				glm::rotate(glm::radians(40.0f), glm::vec3(0, 1, 0)) *
-				glm::eulerAngleY(sin(timee * 10) / 4),
-				textureFish2);
+				glm::eulerAngleY(sin(timee * 10) / -4),
+				textureFish5);
 		}	
 	}
 
-	for (int j = 0; j < 2; j++) drawObjectTexture(sharkContext, glm::translate(glm::vec3( 70 * j, 575 + 20 * j, 20 + 50 * j)) *
-									glm::rotate(glm::radians((timee / 12) * 90.f), glm::vec3(0, 1, 0)) *
-									glm::rotate(glm::radians(90.f), glm::vec3(0, 1, 0)) * glm::translate(glm::vec3(-95, -95, -100)) *
-									glm::rotate(glm::radians((timee / 12) * 0.f), glm::vec3(0, 1, 0)) * glm::eulerAngleY(sin(timee * 2) / 4) * 
-									glm::scale(glm::vec3(0.3f) * glm::vec3(0.3f)) *
-									glm::rotate(glm::radians(40.0f), glm::vec3(0, 1, 0)) *
-									glm::rotate(glm::radians(90.0f), glm::vec3(-1, 0, 0)),
-									textureShark);
+	
 
 	for (int j = 0; j < 2; j++) drawObjectTexture(sharkContext, glm::translate(glm::vec3(70 * j, 565 + 20 * j, 20 + 50 * j)) *
 		glm::rotate(glm::radians((timee / 12) * 90.f), glm::vec3(0, -1, 0)) *
@@ -467,6 +478,9 @@ void init()
 	loadModelToContext("models/bottom.obj", bottomContext);
 	loadModelToContext("models/fish.obj", fishContext);
 	loadModelToContext("models/fish2.obj", fishContext2);
+	loadModelToContext("models/fish3.obj", fishContext3);
+	loadModelToContext("models/fish4.obj", fishContext4);
+	loadModelToContext("models/fish5.obj", fishContext5);
 	loadModelToContext("models/shark.obj", sharkContext);
 	loadModelToContext("models/bubble.obj", bubbleContext);
 	loadModelToContext("models/seaweed.obj", plantContext);
@@ -475,8 +489,11 @@ void init()
 
 
 	setupSkybox();
-	textureFish = Core::LoadTexture("textures/fish.jpg");
+	textureFish = Core::LoadTexture("textures/fish.png");
 	textureFish2 = Core::LoadTexture("textures/fish2.png");
+	textureFish3 = Core::LoadTexture("textures/fish3.jpg");
+	textureFish4 = Core::LoadTexture("textures/fish4.jpg");
+	textureFish5 = Core::LoadTexture("textures/fish5.png");
 	textureReef = Core::LoadTexture("textures/ground.jpg");
 	textureShark = Core::LoadTexture("textures/shark.jpg");
 	textureShip = Core::LoadTexture("textures/boat.jpg");
