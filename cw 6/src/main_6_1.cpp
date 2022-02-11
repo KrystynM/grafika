@@ -75,8 +75,8 @@ glm::mat4 cameraMatrix, perspectiveMatrix;
 
 glm::vec3 lightDir = glm::normalize(glm::vec3(-0.4f, -0.5f, -0.2f));
 glm::vec3 skyColor = glm::vec3(0.298f, 0.392f, 0.543f);
-float fogDensity = 0.06;
-float fogGradient = 0.45;
+float fogDensity = 0.45;
+float fogGradient = 0.08;
 
 glm::quat rotation = glm::quat(1, 0, 0, 0);
 
@@ -349,13 +349,13 @@ void renderScene()
 	drawObjectTexture(coral1Context, glm::translate(glm::vec3(48, 458, 24)) * glm::rotate(glm::radians(90.0f), glm::vec3(-1, 1, 0)) * glm::scale(glm::vec3(0.2f)), textureCoral1);
 
 	//bubbles from coral
-	/*if ((int)timee % 10) {
-		drawObjectTexture(bubblesContext, glm::translate(glm::vec3(55+rand()%3, 457, 74+rand()%3)) * glm::translate(glm::vec3(0, timee, 0)) * glm::scale(glm::vec3(0.6f)), textureBubbles);
-		drawObjectTexture(bubblesContext, glm::translate(glm::vec3(22 + rand() % 3, 463, 110 + rand() % 3)) * glm::translate(glm::vec3(0, timee, 0)) * glm::scale(glm::vec3(0.6f)), textureBubbles);
-		drawObjectTexture(bubblesContext, glm::translate(glm::vec3(3 + rand() % 3, 452, 15 + rand() % 3)) * glm::translate(glm::vec3(0, timee, 0)) * glm::scale(glm::vec3(0.6f)), textureBubbles);
-	}*/
 	
-	//draw starfishes
+		drawObjectTexture(bubblesContext, glm::translate(glm::vec3(55, 463, 74)) * glm::translate(glm::vec3(0, 3*-cos(timee), 0)) * glm::scale(glm::vec3(0.2f)), textureBubbles);
+		drawObjectTexture(bubblesContext, glm::translate(glm::vec3(22 , 469, 110 )) * glm::translate(glm::vec3(0,3* -cos(timee), 0)) * glm::scale(glm::vec3(0.2f)), textureBubbles);
+		drawObjectTexture(bubblesContext, glm::translate(glm::vec3(3 , 458, 15 )) * glm::translate(glm::vec3(0, 3*-cos(timee), 0)) * glm::scale(glm::vec3(0.2f)), textureBubbles);
+	
+	
+	//draw starfishesc
 	drawObjectTexture(starContext, glm::translate(glm::vec3(38, 459, 36)) * glm::scale(glm::vec3(3.2f)), textureStar);
 	drawObjectTexture(starContext, glm::translate(glm::vec3(-58, 451, -32)) * glm::scale(glm::vec3(1.2f)), textureStar);
 	drawObjectTexture(starContext, glm::translate(glm::vec3(110, 450, -36)) * glm::scale(glm::vec3(1.2f)), textureStar);
