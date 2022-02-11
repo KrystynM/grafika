@@ -42,8 +42,10 @@ Core::RenderContext coral1Context;
 Core::RenderContext kelpContext;
 Core::RenderContext starContext;
 Core::RenderContext boatContext;
+Core::RenderContext anchorContext;
 
 int g = 0;
+int g1 = 0;
 
 
 //bubles start
@@ -101,6 +103,7 @@ GLuint textureStar;
 GLuint textureBoat1;
 GLuint textureBoat2;
 GLuint textureBoat3;
+GLuint textureAnchor;
 
 unsigned int skyboxVAO, skyboxVBO;
 
@@ -200,7 +203,9 @@ void keyboard(unsigned char key, int x, int y)
 {
 	float timee = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
 	float angleSpeed = 0.1f;
-	float moveSpeed = 0.5f;
+	float moveSpeed = 0.3f;
+	if (g1 == 1) moveSpeed = 0.8f; else moveSpeed = 0.3f;
+	
 	glm::vec3 desiredPosition;
 
 	switch (key)
@@ -208,6 +213,7 @@ void keyboard(unsigned char key, int x, int y)
 	case 'z': cameraAngle -= angleSpeed; break;
 	case 'x': cameraAngle += angleSpeed; break;
 	case 'q': if(g == 0)g = 1; else g=0; break;
+	case 'b': if (g1 == 0)g1 = 1; else g1 = 0; break;
 	case 'w': desiredPosition = cameraPos + cameraDir * moveSpeed; if (insideSkybox(desiredPosition)) { cameraPos = desiredPosition; } break;
 	case 's': desiredPosition = cameraPos - cameraDir * moveSpeed; if (insideSkybox(desiredPosition)) { cameraPos = desiredPosition; } break;
 	case 'd': desiredPosition = cameraPos + cameraSide * moveSpeed; if (insideSkybox(desiredPosition)) { cameraPos = desiredPosition; } break;
@@ -338,6 +344,8 @@ void renderScene()
 
 
 	drawObjectTexture(fishContext4, glm::translate(glm::vec3(0, 438, 0)) , textureFish4);
+
+	drawObjectTexture(anchorContext, glm::translate(glm::vec3(66, 459, 40)) * glm::rotate(glm::radians(90.0f), glm::vec3(-1, 0, 0)) * glm::scale(glm::vec3(2.6f)), textureAnchor);
 
 
 	//coral objects placement
@@ -523,6 +531,7 @@ void init()
 	loadModelToContext("models/kelp.obj", kelpContext);
 	loadModelToContext("models/starfish.obj", starContext);
 	loadModelToContext("models/boat.obj", boatContext);
+	loadModelToContext("models/anchor.fbx", anchorContext);
 
 
 	setupSkybox();
@@ -542,6 +551,7 @@ void init()
 	textureKelp = Core::LoadTexture("textures/kelp.png");
 	textureStar = Core::LoadTexture("textures/starfish.png");
 	textureBoat1 = Core::LoadTexture("textures/boat.jpg");
+	textureAnchor = Core::LoadTexture("textures/anchor.png");
 
 	//textureFish = Core::LoadTexture("textures/xd.jpg");
 	for (int i = 0; i < 100; i++) fishPositions[i] = glm::vec3(rand()%100,(rand()%50) + 520, rand()% 100);
@@ -564,7 +574,7 @@ int main(int argc, char ** argv)
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(1280, 720);
-	glutCreateWindow("grafika-projekt.exe");
+	glutCreateWindow("Wêdkarski raj");
 	glewInit();
 
 	init();
