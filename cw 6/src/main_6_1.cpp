@@ -26,7 +26,7 @@ GLuint plantTexture;
 
 Core::Shader_Loader shaderLoader;
 
-Core::RenderContext shipContext;
+Core::RenderContext mainContext;
 Core::RenderContext bottomContext;
 Core::RenderContext fishContext;
 Core::RenderContext fishContext2;
@@ -41,6 +41,7 @@ Core::RenderContext coralContext;
 Core::RenderContext coral1Context;
 Core::RenderContext kelpContext;
 Core::RenderContext starContext;
+Core::RenderContext boatContext;
 
 int g = 0;
 
@@ -73,14 +74,14 @@ float cameraAngle = 18;
 
 glm::mat4 cameraMatrix, perspectiveMatrix;
 
-glm::vec3 lightDir = glm::normalize(glm::vec3(-0.4f, -0.5f, -0.2f));
-glm::vec3 skyColor = glm::vec3(0.298f, 0.392f, 0.543f);
-float fogDensity = 0.45;
-float fogGradient = 0.08;
+glm::vec3 lightDir = glm::normalize(glm::vec3(-0.4f, -0.5f, -0.8f));
+glm::vec3 skyColor = glm::vec3(0.22f, 0.3f, 0.4f);
+float fogDensity = 0.08;
+float fogGradient = 0.4;
 
 glm::quat rotation = glm::quat(1, 0, 0, 0);
 
-float skyboxSize = 998.0f;
+float skyboxSize = 999.0f;
 
 GLuint textureReef;
 GLuint textureFish;
@@ -89,7 +90,7 @@ GLuint textureFish3;
 GLuint textureFish4;
 GLuint textureFish5;
 GLuint textureShark;
-GLuint textureShip;
+GLuint textureMain;
 GLuint textureBubble;
 GLuint textureBubbles;
 GLuint texturePlant;
@@ -97,6 +98,9 @@ GLuint textureCoral;
 GLuint textureCoral1;
 GLuint textureKelp;
 GLuint textureStar;
+GLuint textureBoat1;
+GLuint textureBoat2;
+GLuint textureBoat3;
 
 unsigned int skyboxVAO, skyboxVBO;
 
@@ -377,7 +381,6 @@ void renderScene()
 	drawObjectTexture(plantContext, glm::translate(glm::vec3(10, 457, -36)) * glm::scale(glm::vec3(2.8f)) * glm::rotate(glm::radians(330.0f), glm::vec3(0, 1, 0)), texturePlant);
 	drawObjectTexture(plantContext, glm::translate(glm::vec3(16, 461, -43)) * glm::scale(glm::vec3(1.2f)), texturePlant);
 
-
 	//kelp objects placement
 	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-29, 452, -32)) * glm::scale(glm::vec3(1.9f)), textureKelp);
 	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-54, 452, -12)) * glm::scale(glm::vec3(2.9f)) * glm::rotate(glm::radians(60.0f), glm::vec3(0, 1, 0)), textureKelp);
@@ -386,11 +389,12 @@ void renderScene()
 	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-90, 456, 60)) * glm::scale(glm::vec3(4.0f)) * glm::rotate(glm::radians(240.0f), glm::vec3(0, 1, 0)), textureKelp);
 	drawObjectTexture(kelpContext, glm::translate(glm::vec3(-125, 451, 1)) * glm::scale(glm::vec3(4.0f)) * glm::rotate(glm::radians(300.0f), glm::vec3(0, 1, 0)), textureKelp);
 
-
+	//extra
+	drawObjectTexture(boatContext, glm::translate(glm::vec3(-72, 457, -50)) * glm::scale(glm::vec3(8.0f)) * glm::rotate(glm::radians(180.0f), glm::vec3(0, 1, 0.75f)), textureBoat1);
 
 	glm::mat4 shipInitialTransformation = glm::translate(glm::vec3(-0.4f, -0.25f, 0.1f)) * glm::rotate(glm::radians(10.0f), glm::vec3(3, 5, 0)) * glm::rotate(glm::radians(180.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.35f));
 	glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir) * glm::mat4_cast(glm::inverse(rotation)) * glm::mat4_cast(glm::inverse(rotationCamera)) * shipInitialTransformation;
-	drawObjectTexture(shipContext, shipModelMatrix, textureShip);
+	drawObjectTexture(mainContext, shipModelMatrix, textureMain);
 
 	drawObjectTexture(bottomContext, glm::translate(glm::vec3(0, 438, 0)) * glm::rotate(glm::radians(90.0f), glm::vec3(-1, 0, 0)) * glm::scale(glm::vec3(2.0f) * glm::vec3(0.2f)), textureReef);
 
@@ -503,7 +507,7 @@ void init()
 	programColor = shaderLoader.CreateProgram("shaders/shader_color.vert", "shaders/shader_color.frag");
 	programTexture = shaderLoader.CreateProgram("shaders/shader_tex.vert", "shaders/shader_tex.frag");
 	programSkybox = shaderLoader.CreateProgram("shaders/shader_skybox.vert", "shaders/shader_skybox.frag");
-	loadModelToContext("models/boat.obj", shipContext);
+	loadModelToContext("models/main.obj", mainContext);
 	loadModelToContext("models/bottom.obj", bottomContext);
 	loadModelToContext("models/fish.obj", fishContext);
 	loadModelToContext("models/fish2.obj", fishContext2);
@@ -518,6 +522,7 @@ void init()
 	loadModelToContext("models/coral1.obj", coral1Context);
 	loadModelToContext("models/kelp.obj", kelpContext);
 	loadModelToContext("models/starfish.obj", starContext);
+	loadModelToContext("models/boat.obj", boatContext);
 
 
 	setupSkybox();
@@ -528,7 +533,7 @@ void init()
 	textureFish5 = Core::LoadTexture("textures/fish5.png");
 	textureReef = Core::LoadTexture("textures/ground.jpg");
 	textureShark = Core::LoadTexture("textures/shark.jpg");
-	textureShip = Core::LoadTexture("textures/boat.png");
+	textureMain = Core::LoadTexture("textures/main.png");
 	textureBubble = Core::LoadTexture("textures/bubble.png");
 	textureBubbles = Core::LoadTexture("textures/bubbles.png");
 	texturePlant = Core::LoadTexture("textures/plant.png");
@@ -536,6 +541,7 @@ void init()
 	textureCoral1 = Core::LoadTexture("textures/coral1.jpg");
 	textureKelp = Core::LoadTexture("textures/kelp.png");
 	textureStar = Core::LoadTexture("textures/starfish.png");
+	textureBoat1 = Core::LoadTexture("textures/boat.jpg");
 
 	//textureFish = Core::LoadTexture("textures/xd.jpg");
 	for (int i = 0; i < 100; i++) fishPositions[i] = glm::vec3(rand()%100,(rand()%50) + 520, rand()% 100);
